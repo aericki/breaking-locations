@@ -1,5 +1,6 @@
 // src/pages/HomePage.tsx
 import React, { useEffect, useState } from 'react';
+import 'leaflet/dist/leaflet.css'; // Import para corrigir renderização do mapa Leaflet
 import SearchBar from '../components/SearchBar';
 import LocationMap from '../components/LocationMap';
 import LocationList from '../components/LocationList';
@@ -18,18 +19,23 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 space-y-4">
-      <div className="w-full max-w-lg">
+    <div className="min-h-screen w-screen flex flex-col bg-gray-100">
+      {/* Barra de Pesquisa */}
+      <div className="p-4">
         <SearchBar onSearch={handleSearch} />
       </div>
 
-      
-      <div className="w-full max-w-4xl flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <div className="flex-1 h-96 bg-white rounded shadow p-4">
+      {/* Área do Mapa e Lista de Locais */}
+      <div className="flex flex-1 w-full h-full gap-4 px-4">
+        {/* Mapa - ocupa 80% da largura */}
+        <div className="flex-1 h-full bg-white rounded shadow p-4" style={{ width: '80%' }}>
           <LocationMap locations={locations} />
         </div>
-        <div className="flex-1 bg-white rounded shadow p-4">
+
+        {/* Lista de Locais - ocupa 20% da largura */}
+        <div className="w-1/5 h-full bg-white rounded shadow p-4 overflow-y-auto">
           <LocationList locations={locations} />
+          <h1>OK</h1>
         </div>
       </div>
     </div>

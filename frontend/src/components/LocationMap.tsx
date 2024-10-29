@@ -17,20 +17,17 @@ interface LocationMapProps {
 const LocationMap: React.FC<LocationMapProps> = ({ locations }) => {
   return (
     <MapContainer
+      style={{ 
+        height: '85vh', 
+        width: '100%',
+        margin: '0 auto',
+      }}
       center={[-23.94, -46.31]}
       zoom={12}
       scrollWheelZoom={false} // Desativa zoom pelo scroll
-      dragging={false}         // Desativa o arrasto do mapa
-      style={{
-        width: '100%',
-        height: '400px', // Define altura fixa para o mapa
-        maxWidth: '600px', // Define largura máxima para manter o layout organizado
-        borderRadius: '0.5rem',
-      }}
-      className="border border-gray-200 shadow-lg mx-auto"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' />
+      />
       {locations.map((location) => (
         <Marker key={location.id} position={[location.latitude, location.longitude]}>
           <Popup>
