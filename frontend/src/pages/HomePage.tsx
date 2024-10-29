@@ -12,13 +12,28 @@ const HomePage: React.FC = () => {
   const [locations, setLocations] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [mapCenter, setMapCenter] = useState({ latitude: -23.94, longitude: -46.31 }); // Posição inicial
+  const [userLocation, setUserLocation] = useState<{latitude: number; longitude: number} | null>(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ latitude, longitude });
+        setMapCenter({ latitude, longitude }); // Centraliza o mapa na localização atual
+      },
+      (error) => {
+        console.error('Erro ao obter localização:', error);
+      },
+      { enableHighAccuracy: true }
+    );
+  }, []);
 
   const handleSearch = async (city: string) => {
-
+    
     // 1. Busca os locais de treino da cidade
     const data = await fetchLocations(city);
     setFilteredLocations(data); // Filtra os locais para exibir na lista
-
+    
     // 2. Busca as coordenadas da cidade e centraliza o mapa
     const coordinates = await getCityCoordinates(city);
     if (coordinates) {
@@ -27,8 +42,18 @@ const HomePage: React.FC = () => {
       alert('Cidade não encontrada');
     }
   };
-
+  
+  // Função para voltar à localização atual do usuário
+  const handleResetLocation = () => {
+    if (userLocation) {
+      setMapCenter(userLocation);
+    } else {
+      alert('Localização atual não disponível');
+    }
+  };
+  
   useEffect(() => {
+
     // Carrega todos os locais ao iniciar
     const loadLocations = async () => {
       const data = await fetchLocations('');
@@ -37,7 +62,8 @@ const HomePage: React.FC = () => {
     };
     loadLocations();
   }, []);
-
+  
+  
   return (
     <div className="min-h-screen w-screen flex flex-col bg-gray-100">
       {/* Barra de Pesquisa */}
