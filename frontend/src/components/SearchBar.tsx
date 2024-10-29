@@ -2,10 +2,7 @@
 import React, { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-
-type SearchBarProps = {
-  onSearch: (city: string) => void;
-};
+import { SearchBarProps } from '@/types/types';
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [city, setCity] = useState('');
