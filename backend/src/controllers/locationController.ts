@@ -3,10 +3,11 @@ import * as locationService from "../services/locationService";
 
 export const getLocationHandler = async (req: Request, res: Response) => {
   try {
-    const locations = await locationService.getAllLocations();
+    const city = req.query.city as string;
+    const locations = await locationService.getAllLocations(city);
     res.json(locations);
   } catch (error:any) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: "Failed to get locations", message: error.message });
   }
 };
 
