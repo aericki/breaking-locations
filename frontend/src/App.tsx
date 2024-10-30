@@ -1,5 +1,7 @@
 import React from 'react';
 import  { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Routes, Route  } from "react-router-dom"
+import Home from './pages/Home';
 
 
 
@@ -14,7 +16,12 @@ const App: React.FC = () => {
   }
   return (
     <ThemeProvider theme={theme}>
-        
+        <BrowserRouter>
+          <Routes>
+            <Route  path="/" element={<Home />} />
+            <Route path="/cadastro" element={<div>Search</div>} />
+          </Routes>
+        </BrowserRouter>
     </ThemeProvider>
   );
 };
