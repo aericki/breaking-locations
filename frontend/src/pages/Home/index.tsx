@@ -11,7 +11,7 @@ export default function Home() {
         <Title>O Mapa do bate osso</Title>
         <SubTitle>encontre um local para treinar</SubTitle>
 
-        <Link to="/register">
+        <Link to="/cadastro">
           <Button onClick={() => { }}>
             <ButtonBox>
               {">"}
