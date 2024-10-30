@@ -1,31 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/components/LocationMap.tsx
 import L from 'leaflet';
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { Location, LocationMapProps } from '@/types/types';
 
-interface Location {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
-  address: string;
-}
-
-interface LocationMapProps {
-  locations: Location[];
-  center: { latitude: number; longitude: number };
-  selectedLocation?: Location | null;
-}
-
-// Componente para atualizar o centro do mapa e abrir o popup
 const MapCenterUpdater: React.FC<{ center: { latitude: number; longitude: number }; selectedLocation?: Location | null }> = ({ center, selectedLocation }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.setView([center.latitude, center.longitude], 12);
-
-    // Exibe o popup do local selecionado, se houver
     if (selectedLocation) {
+      // Centraliza o mapa no local selecionado e abre o popup
+      map.setView([selectedLocation.latitude, selectedLocation.longitude], 12);
+
       const popup = L.popup()
         .setLatLng([selectedLocation.latitude, selectedLocation.longitude])
         .setContent(
@@ -37,7 +24,7 @@ const MapCenterUpdater: React.FC<{ center: { latitude: number; longitude: number
 
       popup.openOn(map);
     }
-  }, [center, selectedLocation, map]);
+  }, [selectedLocation, map]);
 
   return null;
 };
@@ -45,7 +32,6 @@ const MapCenterUpdater: React.FC<{ center: { latitude: number; longitude: number
 const LocationMap: React.FC<LocationMapProps> = ({ locations, center, selectedLocation }) => {
   return (
     <MapContainer
-      
       center={[center.latitude, center.longitude]}
       zoom={12}
       scrollWheelZoom={false}
@@ -54,6 +40,7 @@ const LocationMap: React.FC<LocationMapProps> = ({ locations, center, selectedLo
         height: '85vh',
         margin: '0 auto',
       }}
+      
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <MapCenterUpdater center={center} selectedLocation={selectedLocation} />
