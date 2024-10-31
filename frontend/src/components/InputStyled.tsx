@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
 
@@ -24,7 +25,12 @@ export function InputStyled(props: InputProps) {
         type='text'
         placeholder={props.placeholder}
         value={props.value}
-        onChange={e => props.onChange?.(e.target.value)}
+        onChange={(e) => {
+          props.onChange((previousState: any) => ({
+            ...previousState,
+            [props.name]: e.target.value
+          }));
+        }}
         required
       />
     </div>

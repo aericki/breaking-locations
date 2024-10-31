@@ -5,15 +5,14 @@ import {
   Container,
   Form,
   FormTitle,
-  ButtonContainer,
-  Button,
   MapContainer,
   Section
 
 } from './styles';
 
 import { LatLngExpression } from 'leaflet';
-import { Marker, TileLayer } from 'react-leaflet';
+import { Marker, TileLayer, useMapEvents } from 'react-leaflet';
+import useGetLocation from '@/hooks/useGetLocation';
 
 
 export default function Cadastrar() {
@@ -25,9 +24,32 @@ export default function Cadastrar() {
     state: '',
     country: '',
     whatsapp: '',
+    latitude: 0,
+    longitude: 0,
+
   });
 
-  console.log(formValues)
+  const {coords} = useGetLocation();
+
+  function onSubmit () {
+    console.log(formValues);
+  }
+
+  if (!coords) {
+    return <h1>Carregando Localização ...</h1>;
+  }
+
+  const MapClickEvent = () => {
+    useMapEvents({
+    click(e) {
+      const { lat, lng } = e.latlng;
+      setFormValues({ ...formValues, latitude: lat, longitude: lng });
+    },
+  });
+
+  return null;
+};
+  
 
   return (
     <Container>
@@ -80,14 +102,22 @@ export default function Cadastrar() {
 
         <Section>
           <MapContainer 
-            center={{lat: -23.5489,lng: -46.638} as LatLngExpression} 
+            center={
+              {
+                lat: coords[0],
+                lng: coords[1]
+              } as LatLngExpression} 
             zoom={13}
-            whenReady={() => console.log('Mapa carregado')}
           >
+            <MapClickEvent />
+
             <TileLayer 
+            
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-            <Marker position={[-23.5489, -46.638] as LatLngExpression} />
+            <Marker
+            position={[formValues.latitude, formValues.longitude] as LatLngExpression} />
+            
           </MapContainer>
         </Section>
       </Form>

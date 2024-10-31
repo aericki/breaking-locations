@@ -32,7 +32,7 @@ export const MapContainer = styled(MapContainerLeaflet)`
   height: 50vh;
 `;
 
-export const Section = styled.p`
+export const Section = styled.div`
   color: ${(props) => props.theme.primary};
   font-size: 20px;
 
