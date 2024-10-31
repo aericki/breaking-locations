@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useState } from 'react';
 import { InputStyled } from '@/components/InputStyled';
 import {
@@ -9,11 +9,12 @@ import {
   Section
 
 } from './styles';
+import { Button } from '@/components/ui/button';
 
 import { LatLngExpression } from 'leaflet';
 import { Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import useGetLocation from '@/hooks/useGetLocation';
-
+import { useToast } from '@/hooks/use-toast';
 
 export default function Cadastrar() {
 
@@ -29,10 +30,16 @@ export default function Cadastrar() {
 
   });
 
-  const {coords} = useGetLocation();
+  const { toast } = useToast();
+  const { coords } = useGetLocation();
 
-  function onSubmit () {
+  function onSubmit() {
     console.log(formValues);
+
+    toast({
+      title: 'Local de Treino Cadastrado',
+      description: 'Seu local de treino foi cadastrado com sucesso',
+    });
   }
 
   if (!coords) {
@@ -41,32 +48,36 @@ export default function Cadastrar() {
 
   const MapClickEvent = () => {
     useMapEvents({
-    click(e) {
-      const { lat, lng } = e.latlng;
-      setFormValues({ ...formValues, latitude: lat, longitude: lng });
-    },
-  });
+      click(e) {
+        const { lat, lng } = e.latlng;
+        setFormValues({ ...formValues, latitude: lat, longitude: lng });
+      },
+    });
 
-  return null;
-};
-  
+    return null;
+  };
+
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+        
+      }}>
         <FormTitle className='font-bold'>Cadastro do Local de Treino</FormTitle>
 
         <Section className='section flex flex-col gap-5'>
           Dados
           <InputStyled
             label="Nome"
-            name="name"            placeholder="Centro de Treinamento e Pesquisa de Peruíbe"
+            name="name" placeholder="Centro de Treinamento e Pesquisa de Peruíbe"
             value={formValues.name}
             onChange={setFormValues}
           />
           <InputStyled
             label="Endereço"
-            name="address"            placeholder="Rua Sebastião Anunciato 99"
+            name="address" placeholder="Rua Sebastião Anunciato 99"
             value={formValues.address}
             onChange={setFormValues}
           />
@@ -85,7 +96,7 @@ export default function Cadastrar() {
             onChange={setFormValues}
           />
           <InputStyled
-            label="Pais" 
+            label="Pais"
             name="country"
             placeholder="Brasil"
             value={formValues.country}
@@ -101,25 +112,34 @@ export default function Cadastrar() {
         </Section>
 
         <Section>
-          <MapContainer 
+          <MapContainer
             center={
               {
                 lat: coords[0],
                 lng: coords[1]
-              } as LatLngExpression} 
+              } as LatLngExpression}
             zoom={13}
           >
             <MapClickEvent />
 
-            <TileLayer 
-            
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+            <TileLayer
+
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
             <Marker
-            position={[formValues.latitude, formValues.longitude] as LatLngExpression} />
-            
+              position={[formValues.latitude, formValues.longitude] as LatLngExpression} />
+
           </MapContainer>
+
+          <Button
+            style={{
+              marginTop: '1rem',
+              backgroundColor: "#322153",
+              color: "white",
+            }}
+            type='submit'>Cadastrar</Button>
         </Section>
+
       </Form>
     </Container>
   )
