@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route  } from "react-router-dom"
 import Home from './pages/Home';
 import Cadastrar from './pages/Cadastro';
 
-
-
 const App: React.FC = () => {
 
   const theme = {

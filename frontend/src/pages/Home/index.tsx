@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Container, Title, SubTitle, ButtonBox, Button, LeftContainer, RightContainer } from "./styles";
 import { Link } from "react-router-dom";
 
