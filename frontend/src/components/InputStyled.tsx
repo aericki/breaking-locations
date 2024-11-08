@@ -3,15 +3,17 @@
 
 
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Input, InputProps as ShadcnInputProps } from '@/components/ui/input';
 
-type InputProps = {
+export type InputProps = {
   label: string;
   name: string;
   value?: string;
   onChange: Function;
-  placeholder: string
-
+  placeholder?: string
+  disabled?: boolean
+  type?: ShadcnInputProps["type"]
+  pattern?: ShadcnInputProps["pattern"]
 
 }
 
@@ -22,7 +24,7 @@ export function InputStyled(props: InputProps) {
       <Input
         className='bg-gray-100  placeholder:text-gray-400 placeholder:font-light font-normal'
         name={props.name}
-        type='text'
+        type={props.type}
         placeholder={props.placeholder}
         value={props.value}
         onChange={(e) => {
@@ -31,8 +33,10 @@ export function InputStyled(props: InputProps) {
             [props.name]: e.target.value
           }));
         }}
+        disabled={props.disabled}
         required
       />
     </div>
   );
 }
+
