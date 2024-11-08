@@ -11,6 +11,9 @@ model Location {
   id        String  @id @default(uuid())
   name      String
   city      String
+  address   String
+  state     String
+  country   String
   whatsapp  String?
   latitude  Float
   longitude Float
