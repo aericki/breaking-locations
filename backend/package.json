@@ -19,13 +19,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": ">=18.x"},
+    "node": ">=18.x"
+  },
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules --respawn --transpile-only  src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
-  "keywords": [ "typescript", "node", "express", "prisma" ],
+  "keywords": [
+    "typescript",
+    "node",
+    "express",
+    "prisma"
+  ],
   "author": "aerickidev",
   "license": "ISC",
   "description": ""

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Container>
       <LeftContainer>
-        <Title>O Mapa do bate osso</Title>
+        <Title>BREAKING LOCATIONS</Title>
         <SubTitle>encontre um local para treinar</SubTitle>
         <div className="flex flex-col gap-2 items-center">
         <Link to="/cadastro">
@@ -15,7 +15,7 @@ export default function Home() {
             <ButtonBox>
               <MapPin />
             </ButtonBox>
-            Cadastre a localização de onde voce bateu osso
+            Cadastre um local
           </Button>
         </Link>
         <Link to="/localizacao">
@@ -23,7 +23,7 @@ export default function Home() {
             <ButtonBox>
               <Search />
             </ButtonBox>
-            Procure um local de treino.
+            Encontre um local de treino.
           </Button>
         </Link>
         </div>

@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { default as RenamedCaptcha} from '../../utils/captcha';
 import { InputStyled } from '@/components/InputStyled';
 import {
   Container,
@@ -17,9 +18,11 @@ import useGetLocation from '@/hooks/useGetLocation';
 import { useToast } from '@/hooks/use-toast';
 import { getReverseGeocoding } from '@/api/getReverseGeocoding';
 import { createLocation } from '@/api/locationApi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cadastrar() {
 
+  const [hcaptchaToken, setHcaptchaToken] = useState<string>('');
   const [formValues, setFormValues] = useState({
     name: '',
     address: '',
@@ -29,11 +32,11 @@ export default function Cadastrar() {
     whatsapp: '',
     latitude: 0,
     longitude: 0,
-
   });
 
   const { toast } = useToast();
   const { coords } = useGetLocation();
+  const navigate = useNavigate();
 
   const getAddress = async (lat: number, lng: number) => {
     try {
@@ -46,7 +49,6 @@ export default function Cadastrar() {
         country: data.address.country || '',
         latitude: lat,
         longitude: lng
-
       });
 
     } catch (error) {
@@ -55,8 +57,17 @@ export default function Cadastrar() {
   }
 
   function onSubmit() {
-
+    
     try {
+      if (!hcaptchaToken) {
+        toast({
+          title: 'Erro ao cadastrar local',
+          description: 'Por favor, verifique o captcha',
+          color: 'red',
+        });
+        return;
+      }
+
       if (formValues.name && formValues.address && formValues.city && formValues.state && formValues.country && formValues.whatsapp && formValues.latitude && formValues.longitude) {
         toast({
           title: 'Local de Treino Cadastrado',
@@ -65,6 +76,12 @@ export default function Cadastrar() {
         });
       }
       createLocation(formValues);
+
+      setTimeout(() => {
+        navigate('/localizacao');
+      }, 2000);
+
+      
 
     } catch (error) {
       console.error(error);
@@ -84,9 +101,6 @@ export default function Cadastrar() {
         await getAddress(lat, lng);
         console.log(formValues);
       },
-
-
-
     });
 
     return null;
@@ -157,15 +171,23 @@ export default function Cadastrar() {
           />
 
         </Section>
+        <RenamedCaptcha sitekey='b25a2b2a-c218-47fa-abb2-9a1a8942fb90'
+          onVerify={(token: string) => {
+            setHcaptchaToken(token);
+          }}
+        />
         <Button
           style={{
             marginTop: '1rem',
             backgroundColor: "#322153",
             color: "white",
           }}
-          type='submit'>Cadastrar</Button>
+          type='submit'>
+          Cadastrar</Button>
       </Form>
     </Container>
   )
 }
+
+//TODO:ADICIONAR NUMERO DO LOCAL
 

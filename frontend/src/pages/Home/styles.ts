@@ -16,7 +16,7 @@ export const Title = styled.h1`
   color: ${(props) => props.theme.primary};
   padding-bottom: 50px;
   text-align: center;
-
+  font-weight: bold;
   max-width: 500px;
 `;
 
@@ -25,6 +25,7 @@ export const SubTitle = styled.p`
   padding-bottom: 50px;
   text-align: center;
   max-width: 500px;
+  font-weight: bold;
 `;
 
 export const ButtonBox = styled.div`
@@ -75,7 +76,7 @@ export const RightContainer = styled.div`
   align-items: center;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  background: url("../../../public/home-background.svg") no-repeat  bottom; ;
+  background: url("../../../public/home-background.svg") no-repeat  center center;
 `;
 
 export const Image = styled.img.attrs(() => ({
