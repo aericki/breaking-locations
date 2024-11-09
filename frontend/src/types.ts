@@ -2,6 +2,9 @@
 export interface Location {
   id: string;
   name: string;
+  whatsapp: string;
+  state: string;
+  country: string;
   latitude: number;
   longitude: number;
   address: string;

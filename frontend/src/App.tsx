@@ -3,6 +3,7 @@ import  { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route  } from "react-router-dom"
 import Home from './pages/Home';
 import Cadastrar from './pages/Cadastro';
+import Localizacao from './pages/Localizacao';
 
 const App: React.FC = () => {
 
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Routes>
             <Route  path="/" element={<Home />} />
             <Route path="/cadastro" element={<Cadastrar/>} />
+            <Route path="/localizacao" element={<Localizacao/>} />
           </Routes>
         </BrowserRouter>
     </ThemeProvider>

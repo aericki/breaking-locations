@@ -65,6 +65,7 @@ export default function Cadastrar() {
         });
       }
       createLocation(formValues);
+
     } catch (error) {
       console.error(error);
     }
