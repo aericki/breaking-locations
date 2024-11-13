@@ -19,6 +19,7 @@ import { useToast } from '@/hooks/use-toast';
 import { getReverseGeocoding } from '@/api/getReverseGeocoding';
 import { createLocation } from '@/api/locationApi';
 import { Link, useNavigate } from 'react-router-dom';
+import {SyncLoader} from 'react-spinners'
 
 export default function Cadastrar() {
 
@@ -78,7 +79,7 @@ export default function Cadastrar() {
       createLocation(formValues);
 
       setTimeout(() => {
-        navigate('/localizacao');
+        navigate('/localization');
       }, 2000);
 
 
@@ -90,7 +91,10 @@ export default function Cadastrar() {
   }
 
   if (!coords) {
-    return <h1>Carregando Localização ...</h1>;
+    return <div className="flex flex-row gap-5 items-center justify-center h-screen" >
+    <p className="text-6xl text-[#6C63FF] font-bold ">Carregando</p>
+    <SyncLoader color="#6C63FF" size={20} />
+  </div>;
   }
 
   const MapClickEvent = () => {

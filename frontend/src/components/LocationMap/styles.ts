@@ -48,6 +48,15 @@ export const ButtonContainer = styled.div`
   padding-top: 20px;
 `;
 
+export const Title = styled.h1`
+  font-size: 54px;
+  color: ${(props) => props.theme.primary};
+  padding-bottom: 50px;
+  text-align: center;
+
+  max-width: 500px;
+`;
+
 export const Button = styled.button`
   display: flex;
   align-items: center;
