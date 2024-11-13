@@ -1,16 +1,16 @@
 
 import { useState } from 'react';
-import { default as RenamedCaptcha} from '../../utils/captcha';
+import { default as RenamedCaptcha } from '../../utils/captcha';
 import { InputStyled } from '@/components/InputStyled';
 import {
   Container,
   Form,
   FormTitle,
   MapContainer,
-  Section
+  Section,
+  Button
 
 } from './styles';
-import { Button } from '@/components/ui/button';
 
 import { LatLngExpression } from 'leaflet';
 import { Marker, TileLayer, useMapEvents } from 'react-leaflet';
@@ -18,7 +18,7 @@ import useGetLocation from '@/hooks/useGetLocation';
 import { useToast } from '@/hooks/use-toast';
 import { getReverseGeocoding } from '@/api/getReverseGeocoding';
 import { createLocation } from '@/api/locationApi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Cadastrar() {
 
@@ -57,7 +57,7 @@ export default function Cadastrar() {
   }
 
   function onSubmit() {
-    
+
     try {
       if (!hcaptchaToken) {
         toast({
@@ -81,7 +81,7 @@ export default function Cadastrar() {
         navigate('/localizacao');
       }, 2000);
 
-      
+
 
     } catch (error) {
       console.error(error);
@@ -176,18 +176,22 @@ export default function Cadastrar() {
             setHcaptchaToken(token);
           }}
         />
-        <Button
-          style={{
-            marginTop: '1rem',
-            backgroundColor: "#322153",
-            color: "white",
-          }}
-          type='submit'>
-          Cadastrar</Button>
+        <div className='flex flex-row  mt-4 w-full justify-between  gap-4'>
+          <Button
+            style={{
+              width: '150px',
+            }}
+            type='submit'>
+            Cadastrar
+          </Button>
+          <Link to="/localization">
+          <Button style={{
+            width: '150px',
+            backgroundColor: 'black'
+          }}> Ir para a Pesquisa </Button>
+          </Link>
+        </div>
       </Form>
     </Container>
   )
 }
-
-//TODO:ADICIONAR NUMERO DO LOCAL
-

@@ -19,8 +19,8 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Routes>
             <Route  path="/" element={<Home />} />
-            <Route path="/cadastro" element={<Cadastrar/>} />
-            <Route path="/localizacao" element={<Localizacao/>} />
+            <Route path="/register" element={<Cadastrar/>} />
+            <Route path="/localization" element={<Localizacao/>} />
           </Routes>
         </BrowserRouter>
     </ThemeProvider>

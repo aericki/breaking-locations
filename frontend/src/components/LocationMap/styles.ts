@@ -59,7 +59,6 @@ export const Button = styled.button`
   height: 36px;
   border: none;
   border-radius: 5px;
-
   &:hover {
     background-color: ${(props) => props.theme.primary}99;
   }

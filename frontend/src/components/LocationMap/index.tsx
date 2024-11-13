@@ -6,11 +6,14 @@ import { Input } from '../ui/input';
 import { Button, Container } from './styles';
 import { Location } from '@/types';
 import { LatLngExpression } from 'leaflet';
+import { useNavigate } from 'react-router-dom';
 
 const LocationsMap = () => {
   const [city, setCity] = useState('');
   const [locations, setLocations] = useState<Location[]>([]);
   const [mapCenter, setMapCenter] = useState<LatLngExpression>([-23.9278, -46.9937]);
+
+  const navigate = useNavigate();
 
   // Função para buscar localizações da API com base na cidade
   const handleSearch = async () => {
@@ -36,7 +39,8 @@ const LocationsMap = () => {
 
   return (
     <Container>
-      <div className="flex w-full items-center justify-between gap-3 mb-4">
+      <div className="flex w-full items-center justify-between gap-3 mb-4 max-w-[700px]">
+        
         <Input
           className='flex bg-gray-100 placeholder:text-gray-400 placeholder:font-light font-normal'
           type="text"
@@ -45,9 +49,15 @@ const LocationsMap = () => {
           onChange={(e) => setCity(e.target.value)}
         />
         <Button onClick={handleSearch}>Pesquisar</Button>
+        <Button style={{ 
+          width: '200px',
+          backgroundColor: 'black',
+        }} onClick={() => navigate('/register') } >Novo local</Button>
       </div>
       
-      <MapContainer center={mapCenter} zoom={12} style={{ height: '80vh', width: '100%' }}>
+      <MapContainer center={mapCenter} zoom={12} style={{ height: '80vh', width: '100%' ,
+        zIndex: 0
+      }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         <FlyToLocation center={mapCenter} />

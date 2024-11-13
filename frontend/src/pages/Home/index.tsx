@@ -10,7 +10,7 @@ export default function Home() {
         <Title>BREAKING LOCATIONS</Title>
         <SubTitle>encontre um local para treinar</SubTitle>
         <div className="flex flex-col gap-2 items-center">
-        <Link to="/cadastro">
+        <Link to="/register">
           <Button onClick={() => { }}>
             <ButtonBox>
               <MapPin />
@@ -18,7 +18,7 @@ export default function Home() {
             Cadastre um local
           </Button>
         </Link>
-        <Link to="/localizacao">
+        <Link to="/localization">
           <Button onClick={() => { }}>
             <ButtonBox>
               <Search />
