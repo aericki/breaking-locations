@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -8,7 +8,7 @@ generator client {
 }
 
 model Location {
-  id        String  @id @default(uuid())
+  id        String   @id @default(cuid())
   name      String
   city      String
   address   String
@@ -18,6 +18,8 @@ model Location {
   latitude  Float
   longitude Float
   createdAt DateTime @default(now())
-}
 
-//TODO: Adicionar Usuario 
+  @@index([city]) // Índice para buscas rápidas por cidade
+  @@index([state]) // Índice para buscas rápidas por estado
+  @@unique([latitude, longitude]) // Garante que não haja locais duplicados
+}
