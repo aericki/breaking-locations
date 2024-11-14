@@ -8,11 +8,12 @@ import { Location } from '@/types';
 import { LatLngExpression } from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import { Title } from './styles';
+import {HomeIcon} from 'lucide-react'
 
 const LocationsMap = () => {
   const [city, setCity] = useState('');
   const [locations, setLocations] = useState<Location[]>([]);
-  const [mapCenter, setMapCenter] = useState<LatLngExpression>([-23.9278, -46.9937]);
+  const [mapCenter, setMapCenter] = useState<LatLngExpression>([-22.9278, -46.9937]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -55,7 +56,7 @@ const LocationsMap = () => {
   return (
     <Container>
         <Title>Localizações</Title>
-        <form className="flex w-full items-center justify-between gap-3 mb-4 max-w-[700px]">
+        <div   className="flex w-full items-center justify-between gap-3 mb-4 max-w-[700px]">
         <Input
           className='flex bg-gray-100 placeholder:text-gray-400 placeholder:font-light font-normal'
           type="text"
@@ -69,7 +70,10 @@ const LocationsMap = () => {
           width: '200px',
           backgroundColor: 'black',
         }} onClick={() => navigate('/register') } >Novo local</Button>
-      </form>
+        <Button style={{
+          backgroundColor: 'black',
+        }} onClick={() => navigate('/') }><HomeIcon /> Home</Button>
+      </div>
       
       {isLoading ? (
         <div className="flex items-center justify-center h-full" >

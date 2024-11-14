@@ -8,7 +8,7 @@ export default function Home() {
     <Container>
       <LeftContainer>
         <Title>BREAKING LOCATIONS</Title>
-        <SubTitle>encontre um local para treinar</SubTitle>
+        <SubTitle>Encontre um local para treinar</SubTitle>
         <div className="flex flex-col gap-2 items-center">
         <Link to="/register">
           <Button onClick={() => { }}>
