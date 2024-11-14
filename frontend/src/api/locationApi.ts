@@ -14,7 +14,7 @@ export interface Location {
 }
 
 export const api = Axios.create({
-  baseURL: 'http://localhost:4000/api'
+  baseURL: 'https://breaking-locations.onrender.com/api'
 });
 
 export const fetchLocations = async (city: string = '') => {
