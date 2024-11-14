@@ -76,7 +76,13 @@ export const RightContainer = styled.div`
   align-items: center;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  background: url("../../../public/home-background.svg") no-repeat  center center;
+  overflow: hidden; // oculta o excesso caso a imagem ultrapasse os limites do contêiner
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // mantém a proporção, preenchendo o contêiner
+  }
 `;
 
 export const Image = styled.img.attrs(() => ({

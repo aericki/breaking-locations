@@ -30,6 +30,7 @@ export default function Home() {
         
       </LeftContainer>
       <RightContainer>
+        <img src="/public/home-background.svg" alt=""  />
       </RightContainer>
     </Container>
   )
