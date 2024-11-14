@@ -69,21 +69,28 @@ export default function Cadastrar() {
         return;
       }
 
-      if (formValues.name && formValues.address && formValues.city && formValues.state && formValues.country && formValues.whatsapp && formValues.latitude && formValues.longitude) {
+      if (!formValues.state && !formValues.country && !formValues.latitude && !formValues.longitude) {
         toast({
-          title: 'Local de Treino Cadastrado',
+          variant: 'destructive',
+          title: 'Local de Treino Não Cadastrado',
+          description: 'Seu local de treino não foi cadastrado com sucesso, Defina um ponto no mapa',
+          color: 'red',
+        });
+        return;
+
+      } else {
+        toast({
+          variant: 'default',
           description: 'Seu local de treino foi cadastrado com sucesso',
           color: 'green',
         });
+
+        createLocation(formValues);
+
+        setTimeout(() => {
+          navigate('/localization');
+        }, 2000);
       }
-      createLocation(formValues);
-
-      setTimeout(() => {
-        navigate('/localization');
-      }, 2000);
-
-
-
     } catch (error) {
       console.error(error);
     }
